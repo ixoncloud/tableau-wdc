@@ -1,0 +1,30 @@
+<div class="col-xs-2 sidebar">
+  <ix-company-select
+    [disabled]="companies.value.length === 0"
+    [companies]="companies | async"
+    (companySelect)="onCompanyChange($event)">
+  </ix-company-select>
+  <br>
+  <h5>Timespan</h5>
+  <ix-date-select
+    label="Choose a starting date..."
+    [date]="selected.value.startingDate"
+    [maxDate]="selected.value.endingDate"
+    formName="startDate"
+    (dateChange)="onStartingDateChange($event)">
+  </ix-date-select>
+  <br>
+  <ix-date-select
+    label="Choose an ending date..."
+    [date]="selected.value.endingDate"
+    [minDate]="selected.value.startingDate"
+    formName="endDate"
+    (dateChange)="onEndingDateChange($event)">
+  </ix-date-select>
+  <br>
+  <ix-agent-select
+    [selectedCompany]="(selected | async).selectedCompany"
+    [agents]="agents"
+    (agentSelect)="onAgentChange($event)">
+  </ix-agent-select>
+</div>

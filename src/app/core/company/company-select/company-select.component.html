@@ -1,0 +1,14 @@
+<h5>Company</h5>
+<mdl-select
+  id="selectCompany"
+  name="selectCompany"
+  label="Select a company"
+  floating-label
+  [disabled]="disabled"
+  (change)="onChange($event)">
+  <mdl-option
+    *ngFor="let company of companies;"
+    [value]="company.publicId">
+    {{company.name}}
+  </mdl-option>
+</mdl-select>

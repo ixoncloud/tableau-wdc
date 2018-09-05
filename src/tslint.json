@@ -1,0 +1,21 @@
+{
+  "extends": "../tslint.json",
+  "rules": {
+    "forin": false,
+    "no-console": [
+      true
+    ],
+    "directive-selector": [
+      true,
+      "attribute",
+      "ix",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "ix",
+      "kebab-case"
+    ]
+  }
+}

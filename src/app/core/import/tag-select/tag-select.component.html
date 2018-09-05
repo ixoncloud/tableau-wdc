@@ -1,0 +1,9 @@
+<div ngModelGroup="tagSelect">
+  <div *ngFor="let agent of getAgents()">
+    <h5>Tags - {{agent.name}}</h5>
+    <ix-tag-table
+      [agent]="agent"
+      (tagChange)="onTagChange($event.agentId, $event.deviceId, $event.tag, $event.selected)">
+    </ix-tag-table>
+  </div>
+</div>

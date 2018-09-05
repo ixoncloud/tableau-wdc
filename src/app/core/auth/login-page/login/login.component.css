@@ -1,0 +1,33 @@
+:host {
+  display: block;
+}
+
+.logo {
+  width: 60%;
+}
+
+mdl-card-title {
+  text-align: center;
+}
+
+mdl-card, mdl-textfield {
+  width: 100%;
+}
+
+mdl-card-supporting-text {
+  width: 100%;
+}
+
+mdl-card, mdl-card-title, mdl-card-supporting-text, mdl-card-actions {
+  display: block;
+}
+
+mdl-card-actions div {
+  float: right;
+  /* Padding somehow doesn't apply? */
+  margin-bottom: 8px;
+}
+
+.mdl-dialog__actions button {
+  float: right;
+}

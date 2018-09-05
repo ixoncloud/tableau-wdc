@@ -1,0 +1,13 @@
+<mdl-textfield
+  [dpDayPicker]="{format: 'YYYY-MM-DD',min: minDate, max: maxDate}"
+  theme="dp-material"
+  floating-label
+  [label]="label"
+  error-msg="Please enter a valid date"
+  [(ngModel)]="date"
+  #dateSelect="ngModel"
+  [name]="formName"
+  (ngModelChange)="dateChange.emit(date)"
+  [class.is-invalid]="dateSelect.errors && (dateSelect.dirty || dateSelect.touched)"
+  required>
+</mdl-textfield>

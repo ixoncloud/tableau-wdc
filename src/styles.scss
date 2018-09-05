@@ -1,0 +1,42 @@
+@import "~@angular-mdl/core/scss/color-definitions";
+@import '~@angular-mdl/select/select';
+@import '~@angular-mdl/popover/popover';
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.material-icons {
+  display: none !important; // No support for material fonts by webkit version in tableau
+}
+
+mdl-dialog-host-component {
+  transform: translate(0%, -50%); // Tableau browser does not support translate: 0, 0% works
+}
+
+.mdl-data-table {
+  width: 100%; // Make table fill width
+}
+
+.mdl-checkbox__label {
+  white-space: nowrap; // Do not wrap labels of agent selection checkboxes
+}
+
+.mdl-checkbox__ripple-container {
+  display: none; // Disable ripples on table checkboxes
+}
+
+$color-primary: 0, 72, 145;
+$color-primary-dark: 0, 34, 99;
+$color-accent: 79, 218, 255;
+$color-primary-contrast: $color-dark-contrast;
+$color-accent-contrast: $color-dark-contrast;
+
+@import '~@angular-mdl/core/scss/material-design-lite';

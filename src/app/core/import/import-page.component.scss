@@ -1,0 +1,81 @@
+$title-height: 61px;
+$actions-height: 53px;
+$card-margin: 20px;
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.cardContainer {
+  // Fill screen with margin
+  position: absolute;
+  top: $card-margin;
+  bottom: $card-margin;
+  left: $card-margin;
+  right: $card-margin;
+}
+
+mdl-card, form {
+  /*Fill component */
+  width: 100%;
+  height: 100%;
+}
+
+mdl-card-title {
+  height: $title-height;
+}
+
+mdl-card, mdl-card-title, mdl-card-supporting-text, mdl-card-actions {
+  display: block;
+}
+
+mdl-card-supporting-text {
+  width: 100%;
+  padding-bottom: 0;
+  height: calc(100% - #{$actions-height} - #{$title-height});
+}
+
+mdl-card-actions {
+  height: $actions-height
+}
+
+mdl-card-actions button {
+  /* Move buttons to right */
+  float: right;
+}
+
+mdl-card-actions button.left {
+  float: left;
+}
+
+mdl-card-actions {
+  /* Move actions to the bottom of the card */
+  position: absolute;
+  bottom: 0;
+}
+
+.content {
+  height: 100%;
+}
+
+.sidebar {
+  height: 100%;
+  overflow-y: auto;
+}
+
+#selectCompany {
+  width: 100%;
+}
+
+.main {
+  height: 100%;
+  overflow: auto;
+}
+
+.agentContainer {
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  margin-bottom: 20px;
+}

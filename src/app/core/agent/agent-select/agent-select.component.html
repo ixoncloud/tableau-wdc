@@ -1,0 +1,10 @@
+<h5>Agents</h5>
+<p *ngIf="!selectedCompany">Please select a company first.</p>
+<p *ngIf="selectedCompany && agents.length === 0">No agents found.</p>
+<div class="agentContainer">
+  <mdl-checkbox
+    *ngFor="let agent of agents"
+    (change)="onAgentSelected($event, agent.publicId)">
+    {{agent.name}}
+  </mdl-checkbox>
+</div>

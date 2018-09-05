@@ -1,0 +1,28 @@
+<div class="cardContainer">
+  <form (ngSubmit)="onSubmitPressed()" #importForm="ngForm">
+    <mdl-card mdl-shadow="2">
+      <mdl-card-title>
+        <h2 mdl-card-title-text>Select data to import</h2>
+      </mdl-card-title>
+      <mdl-card-supporting-text>
+        <div class="row content">
+          <ix-import-sidebar></ix-import-sidebar>
+          <div class="col-xs-10 main">
+            <ix-tag-select></ix-tag-select>
+          </div>
+        </div>
+      </mdl-card-supporting-text>
+      <mdl-card-actions mdl-card-border>
+        <button
+          type="submit"
+          mdl-button
+          mdl-colored
+          mdl-ripple
+          [disabled]="selectedTagCount === 0 || !importForm.valid">
+          submit
+        </button>
+      </mdl-card-actions>
+    </mdl-card>
+  </form>
+</div>
+

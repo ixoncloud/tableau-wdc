@@ -1,0 +1,14 @@
+.formula_operator, .formula_factor {
+  display: inline-block;
+  width: 5em;
+}
+
+.formula_operator {
+  margin-right: 1em;
+}
+
+.post_aggregator, .limit {
+  display: inline-block;
+  width: 10em;
+}
+

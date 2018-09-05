@@ -1,0 +1,100 @@
+<table cdk-table class="mdl-data-table" [dataSource]="dataSource" ngModelGroup="table_{{agent.publicId}}">
+  <ng-container cdkColumnDef="select">
+    <th cdk-header-cell *cdkHeaderCellDef>
+      <mdl-checkbox
+        (change)="masterToggle()"
+        [ngModel]="selection.hasValue() && isAllSelected()"
+        [ngModelOptions]="{standalone: true}">
+      </mdl-checkbox>
+    </th>
+    <td cdk-cell *cdkCellDef="let row">
+      <mdl-checkbox (click)="$event.stopPropagation()"
+                    (change)="toggleCheckBox(row)"
+                    [ngModel]="selection.isSelected(row)"
+                    [ngModelOptions]="{standalone: true}">
+      </mdl-checkbox>
+    </td>
+  </ng-container>
+  <ng-container cdkColumnDef="name">
+    <th cdk-header-cell *cdkHeaderCellDef class="mdl-data-table__cell--non-numeric">Name</th>
+    <td cdk-cell *cdkCellDef="let tag" class="mdl-data-table__cell--non-numeric">{{tag.name}}</td>
+  </ng-container>
+  <ng-container cdkColumnDef="limit">
+    <th cdk-header-cell *cdkHeaderCellDef class="mdl-data-table__cell--non-numeric">Limit</th>
+    <td cdk-cell *cdkCellDef="let tag; let i = index" class="mdl-data-table__cell--non-numeric">
+      <mdl-textfield
+        floating-label
+        label="Enter a limit"
+        required
+        class="limit"
+        name="{{i}}_limit"
+        [(ngModel)]="tags[i].limit"
+        #limitInput="ngModel"
+        pattern="^[0-9]+$"
+        [disabled]="!selection.isSelected(tag)"
+        error-msg="Please enter a valid limit"
+        [class.is-invalid]="(limitInput.pristine && limitInput.enabled) || limitInput.errors && (limitInput.dirty || limitInput.touched)"
+        (change)="onTagChange()">
+      </mdl-textfield>
+    </td>
+  </ng-container>
+  <ng-container cdkColumnDef="postAggr">
+    <th cdk-header-cell *cdkHeaderCellDef class="mdl-data-table__cell--non-numeric">Post-Aggregator</th>
+    <td cdk-cell *cdkCellDef="let tag; let i = index" class="mdl-data-table__cell--non-numeric">
+      <mdl-select
+        floating-label
+        label="Select a post-aggregator"
+        name="{{i}}_postAggr"
+        class="post_aggregator"
+        [(ngModel)]="tags[i].postAggr"
+        #postAggrSelect="ngModel"
+        error-msg="Please select a post-formula"
+        [disabled]="!selection.isSelected(tag)"
+        [class.is-invalid]="postAggrSelect.errors && (postAggrSelect.dirty || postAggrSelect.touched)"
+        (change)="onTagChange()">
+        <mdl-option value><em>None</em></mdl-option>
+        <mdl-option *ngFor="let option of getPostAggrOptions(tag.type)" [value]="option">
+          {{option}}
+        </mdl-option>
+      </mdl-select>
+    </td>
+  </ng-container>
+  <ng-container cdkColumnDef="formula">
+    <th cdk-header-cell *cdkHeaderCellDef class="mdl-data-table__cell--non-numeric">Formula</th>
+    <td cdk-cell *cdkCellDef="let tag; let i = index" class="mdl-data-table__cell--non-numeric">
+      <mdl-select
+        floating-label
+        label="Operator"
+        class="formula_operator"
+        name="{{i}}_formula_operator"
+        [(ngModel)]="tags[i].operator"
+        #formulaOperatorSelect="ngModel"
+        error-msg="Please select a formula operator"
+        [disabled]="!selection.isSelected(tag) || shouldDisableFormula(tag)"
+        [class.is-invalid]="formulaOperatorSelect.errors && (formulaOperatorSelect.dirty || formulaOperatorSelect.touched)"
+        (change)="onTagChange()">
+        <mdl-option value><em>None</em></mdl-option>
+        <mdl-option *ngFor="let option of getOperatorOptions()" [value]="option">
+          {{option}}
+        </mdl-option>
+      </mdl-select>
+      <mdl-textfield
+        floating-label
+        label="Factor"
+        class="formula_factor"
+        required
+        name="{{i}}_formula_factor"
+        [(ngModel)]="tags[i].postFactor"
+        #formulaFactorInput="ngModel"
+        pattern="^[0-9]+$"
+        [disabled]="!formulaOperatorSelect.value || !selection.isSelected(tag)"
+        error-msg="Please enter a valid formula operator"
+        [class.is-invalid]="(formulaFactorInput.pristine && formulaFactorInput.enabled) ||
+        formulaFactorInput.errors && (formulaFactorInput.dirty || formulaFactorInput.touched)"
+        (change)="onTagChange()">
+      </mdl-textfield>
+    </td>
+  </ng-container>
+  <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+  <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+</table>
