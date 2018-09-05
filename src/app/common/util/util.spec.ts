@@ -5,7 +5,6 @@ import * as moment from 'moment';
 
 describe('GeneralUtils', function () {
   it('should format the date for the Ix API', inject([], () => {
-
     const formattedDate = getApiDate(moment.unix(1534789322));
     expect(formattedDate).toEqual('2018-08-20');
   }));
