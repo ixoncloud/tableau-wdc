@@ -29,7 +29,7 @@ describe('ApiUtils', function () {
     const agent = new ImportAgent('agent1', [
       new ImportDevice('device1', [
         new ImportTag(1, 10, 'mean'),
-        new ImportTag(2, 69, 'something')
+        new ImportTag(2, 69, 'something', '*', 0)
       ]),
       new ImportDevice('device2', [
         new ImportTag(1, 100, 'max'),
@@ -44,7 +44,9 @@ describe('ApiUtils', function () {
             {
               limit: 10,
               ref: 'device1_1',
-              postAggr: 'mean'
+              postAggr: 'mean',
+              operator: undefined,
+              factor: undefined,
             }
           ]
         },
@@ -53,7 +55,9 @@ describe('ApiUtils', function () {
             {
               limit: 69,
               ref: 'device1_2',
-              postAggr: 'something'
+              postAggr: 'something',
+              operator: '*',
+              factor: 0,
             }
           ]
         }
@@ -64,7 +68,9 @@ describe('ApiUtils', function () {
             {
               limit: 100,
               ref: 'device2_1',
-              postAggr: 'max'
+              postAggr: 'max',
+              operator: undefined,
+              factor: undefined,
             }
           ]
         },
@@ -73,7 +79,9 @@ describe('ApiUtils', function () {
             {
               limit: 34324,
               ref: 'device2_2',
-              postAggr: 'min'
+              postAggr: 'min',
+              operator: undefined,
+              factor: undefined,
             }
           ]
         }

@@ -43,7 +43,7 @@ describe('AuthService', () => {
   it('should add accesstoken to service and Tableau password storage', inject([AuthService], (service: AuthService) => {
     const accessToken = 'aaabbbcccdddeeefffggg';
 
-    service.setAccessToken(accessToken, new Date());
+    service.setAccessToken(accessToken, moment());
 
     expect(service.accessToken).toEqual(accessToken);
 
