@@ -8,7 +8,7 @@
     "build": "ng build",
     "test": "ng test",
     "docs": "compodoc -d docs/ -p src/tsconfig.app.json -s --theme material",
-    "test:ci": "ng test --watch=false --browsers=ChromeDocker --code-coverage",
+    "test:ci": "ng test --watch=false --browsers=ChromeDocker --code-coverage --no-progress",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
