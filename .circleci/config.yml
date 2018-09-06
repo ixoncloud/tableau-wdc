@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/ixonwdc
+    docker:
+    - image: circleci/node:8-browsers
+    steps:
+    - checkout
+    - restore_cache:
+        key: ixonwdc-{{ .Branch }}-{{ checksum "yarn.lock" }}
+    - run: npm install
+    - save_cache:
+        key: ixonwdc-{{ .Branch }}-{{ checksum "yarn.lock" }}
+        paths:
+        - "node_modules"
+    - run: npm run test:ci
