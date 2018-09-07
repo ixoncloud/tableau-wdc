@@ -9,7 +9,7 @@ IxonWDC is a Web Data Connector webapp for Tableau, which uses the IXlsi API to 
 
 In order to develop, test & build IxonWDC you'll need the following installed:
 
-* Nodejs 
+* Nodejs 8.9+
 
 ### Development
 * Run `npm install` or `yarn` to install all dependencies.
