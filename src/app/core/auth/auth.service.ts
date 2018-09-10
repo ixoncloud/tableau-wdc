@@ -98,7 +98,7 @@ export class AuthService {
   createAccessToken(details: LoginDetails): Observable<string> {
     const authString = createBasicAuthString(details);
     return this.http.post(`${this.ixApiService.apiEndpoints['AccessTokenList']}?fields=secretId`,
-      {expiresIn: environment.ixApiEspire},
+      {expiresIn: environment.ixApiExpire},
       {
         headers: {
           Authorization: `Basic ${authString}`
@@ -114,7 +114,7 @@ export class AuthService {
     Log.d(this.TAG, 'Created new access token!');
     this.hasLoadedAuth = true;
     this.authSubject.next();
-    this.setAccessToken(accessToken, moment().add(environment.ixApiEspire, 's'));
+    this.setAccessToken(accessToken, moment().add(environment.ixApiExpire, 's'));
   }
 
   /**

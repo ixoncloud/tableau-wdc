@@ -22,7 +22,7 @@ export const environment = {
   /**
    * Expiry for accesstoken of Ix API
    */
-  ixApiEspire: 3600,
+  ixApiExpire: 3600,
   /**
    * Application id
    */
