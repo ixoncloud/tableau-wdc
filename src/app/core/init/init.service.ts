@@ -36,7 +36,7 @@ export class InitService {
   public initializeApp() {
     let initialization;
     // Enables tagChange detection since we're
-    this.zone.run(() => {
+    return this.zone.run(() => {
       // Try load access token from localstorage
       const isLoggedIn = this.authService.loadAccessTokenFromPasswordStorage();
 
@@ -52,8 +52,9 @@ export class InitService {
       // When the sequence errors, page will be unusable so redirect to error page
       initialization = initialization.pipe(
         tap(null, (error) => this.onInitializationError(error)));
+
+      return initialization;
     });
-    return initialization;
   }
 
   private onInitializationError(error: any) {
