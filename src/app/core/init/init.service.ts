@@ -51,7 +51,8 @@ export class InitService {
       }
       // When the sequence errors, page will be unusable so redirect to error page
       initialization = initialization.pipe(
-        tap(null, (error) => this.onInitializationError(error)));
+        tap(null, (error) => this.onInitializationError(error))
+      );
 
       return initialization;
     });
