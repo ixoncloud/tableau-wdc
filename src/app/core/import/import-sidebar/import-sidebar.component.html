@@ -1,4 +1,5 @@
 <div class="col-xs-2 sidebar">
+  <h5>Company</h5>
   <ix-company-select
     [disabled]="companies.value.length === 0"
     [companies]="companies | async"
@@ -22,9 +23,11 @@
     (dateChange)="onEndingDateChange($event)">
   </ix-date-select>
   <br>
+  <h5>Agents</h5>
   <ix-agent-select
-    [selectedCompany]="(selected | async).selectedCompany"
+    *ngIf="(selected | async).selectedCompany; else noSelectedCompany"
     [agents]="agents"
     (agentSelect)="onAgentChange($event)">
   </ix-agent-select>
+  <p #noSelectedCompany>Please select a company first.</p>
 </div>

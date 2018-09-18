@@ -8,11 +8,6 @@ import {AgentSelectionEvent} from './agent-selection.event';
   styleUrls: ['./agent-select.component.css']
 })
 export class AgentSelectComponent {
-
-  /**
-   * The current company id
-   */
-  @Input() selectedCompany: string;
   /**
    * All agents of current company
    */
