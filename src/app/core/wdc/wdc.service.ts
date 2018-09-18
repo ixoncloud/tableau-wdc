@@ -67,8 +67,8 @@ export class WdcService {
             const limit = currTag.limit ? +currTag.limit : undefined;
             const postAggr = currTag.postAggr ? currTag.postAggr : undefined;
             const formulaOperator = currTag.formulaOperator ? currTag.formulaOperator : undefined;
-            const formulaFactor = currTag.formulaFactor ? currTag.formulaFactor : undefined;
-            importDevice.tags.push(new ImportTag(+tagId, limit, postAggr, formulaOperator, +formulaFactor));
+            const formulaFactor = currTag.formulaFactor ? +currTag.formulaFactor : undefined;
+            importDevice.tags.push(new ImportTag(+tagId, limit, postAggr, formulaOperator, formulaFactor));
           }
         }
         if (importDevice.tags.length > 0) {
