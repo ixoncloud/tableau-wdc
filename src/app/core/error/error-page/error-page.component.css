@@ -1,0 +1,14 @@
+:host {
+  position: relative;
+  display: block;
+  height: 100%;
+}
+
+.errorCard {
+  width: 30em;
+  height: 10em;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  margin: -5em 0 0 -15em;
+}
