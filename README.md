@@ -32,6 +32,15 @@ Run `npm run build` or `yarn build` to build the app.
 Run `npm run docs` or `yarn docs` to generate the compodocs documentation based on JSDoc comments in the code.
 
 ----
+## Constraints 
+
+Because IxonWDC has to run in the browser built into Tableau, which is based on an old version of WebKit, some stuff in the app has been made differently than in any other Angular project.
+
+For instance, instead of using the Angular Material components, IxonWDC uses [angular2-mdl](http://mseemann.io/angular2-mdl/) for it's UI-elements and style.
+
+Also this app enables a lot of polyfills to make modern JavaScript API's available in the old version of WebKit.
+
+---
 ## Web Data Connector
 
 To import data from the web, Tableau has a feature called `Web Data Connectors`. These `WDCs` are websites which include a special javascript library, allowing javascript on the site to communicate with the Tableau builtin browser.
