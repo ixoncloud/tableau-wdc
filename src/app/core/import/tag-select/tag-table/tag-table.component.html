@@ -19,31 +19,13 @@
     <th cdk-header-cell *cdkHeaderCellDef class="mdl-data-table__cell--non-numeric">Name</th>
     <td cdk-cell *cdkCellDef="let tag" class="mdl-data-table__cell--non-numeric">{{tag.name}}</td>
   </ng-container>
-  <ng-container cdkColumnDef="limit">
-    <th cdk-header-cell *cdkHeaderCellDef class="mdl-data-table__cell--non-numeric">Limit</th>
-    <td cdk-cell *cdkCellDef="let tag; let i = index" class="mdl-data-table__cell--non-numeric">
-      <mdl-textfield
-        floating-label
-        label="Enter a limit"
-        required
-        class="limit"
-        name="{{i}}_limit"
-        [(ngModel)]="tags[i].limit"
-        #limitInput="ngModel"
-        pattern="^[0-9]+$"
-        [disabled]="!selection.isSelected(tag)"
-        error-msg="Please enter a valid limit"
-        [class.is-invalid]="(limitInput.pristine && limitInput.enabled) || limitInput.errors && (limitInput.dirty || limitInput.touched)"
-        (change)="onTagChange()">
-      </mdl-textfield>
-    </td>
-  </ng-container>
   <ng-container cdkColumnDef="postAggr">
     <th cdk-header-cell *cdkHeaderCellDef class="mdl-data-table__cell--non-numeric">Post-Aggregator</th>
     <td cdk-cell *cdkCellDef="let tag; let i = index" class="mdl-data-table__cell--non-numeric">
       <mdl-select
         floating-label
-        label="Select a post-aggregator"
+        required
+        label="Post-aggregator"
         name="{{i}}_postAggr"
         class="post_aggregator"
         [(ngModel)]="tags[i].postAggr"
@@ -52,11 +34,30 @@
         [disabled]="!selection.isSelected(tag)"
         [class.is-invalid]="postAggrSelect.errors && (postAggrSelect.dirty || postAggrSelect.touched)"
         (change)="onTagChange()">
-        <mdl-option value><em>None</em></mdl-option>
+        <mdl-option [value]><em>None</em></mdl-option>
         <mdl-option *ngFor="let option of getPostAggrOptions(tag.type)" [value]="option">
           {{option}}
         </mdl-option>
       </mdl-select>
+    </td>
+  </ng-container>
+  <ng-container cdkColumnDef="limit">
+    <th cdk-header-cell *cdkHeaderCellDef class="mdl-data-table__cell--non-numeric">Limit</th>
+    <td cdk-cell *cdkCellDef="let tag; let i = index" class="mdl-data-table__cell--non-numeric">
+      <mdl-textfield
+        floating-label
+        label="Limit"
+        required
+        class="limit"
+        name="{{i}}_limit"
+        [(ngModel)]="tags[i].limit"
+        #limitInput="ngModel"
+        pattern="^[0-9]+$"
+        [disabled]="!selection.isSelected(tag) || !tags[i].postAggr"
+        error-msg="Please enter a valid limit"
+        [class.is-invalid]="(limitInput.pristine && limitInput.enabled) || limitInput.errors && (limitInput.dirty || limitInput.touched)"
+        (change)="onTagChange()">
+      </mdl-textfield>
     </td>
   </ng-container>
   <ng-container cdkColumnDef="formula">
@@ -73,7 +74,7 @@
         [disabled]="!selection.isSelected(tag) || shouldDisableFormula(tag)"
         [class.is-invalid]="formulaOperatorSelect.errors && (formulaOperatorSelect.dirty || formulaOperatorSelect.touched)"
         (change)="onTagChange()">
-        <mdl-option value><em>None</em></mdl-option>
+        <mdl-option [value]><em>None</em></mdl-option>
         <mdl-option *ngFor="let option of getOperatorOptions()" [value]="option">
           {{option}}
         </mdl-option>
