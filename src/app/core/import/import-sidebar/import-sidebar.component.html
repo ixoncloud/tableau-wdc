@@ -29,5 +29,7 @@
     [agents]="agents"
     (agentSelect)="onAgentChange($event)">
   </ix-agent-select>
-  <p #noSelectedCompany>Please select a company first.</p>
+  <ng-template #noSelectedCompany>
+    <p>Please select a company first.</p>
+  </ng-template>
 </div>
