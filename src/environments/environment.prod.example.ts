@@ -2,7 +2,7 @@ export const environment = {
   /**
    * Wether app is running in production or not
    */
-  production: false,
+  production: true,
 
   /**
    * Api discovery url
