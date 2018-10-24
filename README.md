@@ -1,3 +1,4 @@
+![IXON LOGO](src/assets/img/logo.png)
 # IXON Tableau-WDC
 [![CircleCI](https://circleci.com/gh/ixoncloud/tableau-wdc.svg?style=svg)](https://circleci.com/gh/ixoncloud/tableau-wdc)
 
