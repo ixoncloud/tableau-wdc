@@ -53,16 +53,6 @@ Run `npm run docs` or `yarn docs` to generate the compodocs documentation based 
 Tableau-WDC is built to run in the browser built-in to Tableau.
 Because the webapp expects to be loaded in that exact browser, it will not do anything when loaded via a normal browser.
 </details>
-
----
-## Constraints 
-
-Because Tableau-WDC has to run in the browser built into Tableau, which is based on an old version of WebKit, some stuff in the webapp has been made differently than in any other Angular project.
-
-For instance, instead of using the Angular Material components, Tableau-WDC uses [angular2-mdl](http://mseemann.io/angular2-mdl/) for it's UI-elements and style.
-
-Also this webapp enables a lot of polyfills to make modern JavaScript API's available in the old version of WebKit.
-
 ---
 ## Web Data Connector
 
