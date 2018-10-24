@@ -53,7 +53,9 @@ Run `npm run docs` or `yarn docs` to generate the compodocs documentation based 
 Tableau-WDC is built to run in the browser built-in to Tableau.
 Because the webapp expects to be loaded in that exact browser, it will not do anything when loaded via a normal browser.
 </details>
+
 ---
+
 ## Web Data Connector
 
 To import data from the web, Tableau has a feature called `Web Data Connectors`. These `WDCs` are websites which include a special javascript library, allowing javascript on the site to communicate with the Tableau builtin browser.
