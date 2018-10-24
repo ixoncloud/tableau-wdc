@@ -21,16 +21,16 @@ You will also need an IXON Application ID in order to be able to let the webapp 
 * Run `npm install` or `yarn` to install all dependencies.
 
 * Setup your development environment file:
-  * Rename the [development environment example file](https://github.com/ixoncloud/tableau-wdc/tree/master/src/environments/environment.example.ts) to `environment.ts`
+  * Rename the [development environment example file](src/environments/environment.example.ts) to `environment.ts`
   * Open the file and add your IXON application ID between the quotes (e.g. `apiApplicationId: 'AAAAAAAAA'`)
   
 * Run `npm run start` or `yarn start` to start the angular-cli development server.
 
 ### Production
-* Run `npm install --production` or `yarn --production` to install all dependencies.
+* Run `npm install --production` or `yarn --production` to install all production dependencies.
 
 * Setup your production environment file:
-  * Rename the [production environment example file](https://github.com/ixoncloud/tableau-wdc/tree/master/src/environments/environment.prod.example.ts) to `environment.prod.ts`
+  * Rename the [production environment example file](src/environments/environment.prod.example.ts) to `environment.prod.ts`
   * Open the file and add your IXON application ID between the quotes (e.g. `apiApplicationId: 'AAAAAAAAA'`)
 * Run `npm run build:prod` or `yarn build:prod` to build the webapp for production.
   * In case you are hosting the site in a subdirectory (Not on `/`), please use `npm run build:prod --base-href <path>` or `yarn build:prod --base-href <path>`
@@ -82,5 +82,5 @@ In the Gather Data phase, Tableau will open Tableau-WDC in the background to fet
 
 ## License
 
-IXON Tableau-WDC is licensed under the [MIT License](https://github.com/ixoncloud/tableau-wdc/blob/master/LICENSE).
+IXON Tableau-WDC is licensed under the [MIT License](LICENSE).
 
