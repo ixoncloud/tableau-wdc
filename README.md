@@ -11,21 +11,29 @@ In order to develop, test & build Tableau-WDC you'll need the following installe
 
 * Nodejs 8.9+
 
+You will also need an IXON Application ID in order to be able to let the app communicate with the IXPlatform.
+
 ### Development
 * Run `npm install` or `yarn` to install all dependencies.
-* Run `npm run serve` or `yarn serve` to start the angular-cli development server.
+
+* Setup your development environment file:
+  * Rename the [development environment example file](https://github.com/ixoncloud/tableau-wdc/tree/master/src/environments/environment.example.ts) to `environment.ts`
+  * Open the file and add your IXON application ID between the quotes (e.g. `apiApplicationId: 'AAAAAAAAA'`)
+  
+* Run `npm run start` or `yarn start` to start the angular-cli development server.
+
+### Production
+* Run `npm install --production` or `yarn --production` to install all dependencies.
+
+* Setup your production environment file:
+  * Rename the [production environment example file](https://github.com/ixoncloud/tableau-wdc/tree/master/src/environments/environment.prod.example.ts) to `environment.prod.ts`
+  * Open the file and add your IXON application ID between the quotes (e.g. `apiApplicationId: 'AAAAAAAAA'`)
+* Run `npm run build:prod` or `yarn build:prod` to build the app for production.
+  * In case you are hosting the site in a subdirectory (Not on `/`), please use `npm run build:prod --base-href <path>` or `yarn build:prod --base-href <path>`
+* You will find the final html, css & javascript files in `dist/`
 
 ### Unit-tests
 Run `npm run test` or `yarn test` to run the unit-tests with Karma & Headless Chrome (**Google Chrome has to be installed**).
-
-### Environments
-
-Before building the app for testing or production, you'll need to enter your IXON `Application ID` in the correct environment file.
-You can find the folder with environment files [here](https://github.com/ixoncloud/tableau-wdc/tree/master/src/environments).
-
-### Building
-
-Run `npm run build` or `yarn build` to build the app.
 
 ### Code Documentation
 
