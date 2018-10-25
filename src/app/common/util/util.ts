@@ -22,22 +22,10 @@ export function getTableauDate(date: moment.Moment): string {
  * @param tag - Tag to get the type of
  */
 export function getTagType(tag: Tag): string {
-
   if (tag.type !== 'int') {
     return tag.type;
   }
-
-  let type = '';
-
-  if (!tag.signed) {
-    type += 'u';
-  }
-
-  type += tag.type;
-
-  type += tag.width;
-
-  return type;
+  return `${!tag.signed ? 'u' : ''}${tag.type}${tag.width}`;
 }
 
 /**

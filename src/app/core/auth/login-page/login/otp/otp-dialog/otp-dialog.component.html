@@ -1,0 +1,27 @@
+<mdl-dialog
+  #otpDialog
+  [mdl-dialog-config]="{
+  styles:{'width': '25rem'},
+  isModal:true,
+  animate: false,
+  enterTransitionDuration: 400,
+  leaveTransitionDuration: 400}">
+  <form (ngSubmit)="submitForm()" [formGroup]="formGroup">
+    <h3 class="mdl-dialog__title">One-time password</h3>
+    <div class="mdl-dialog__content">
+      <ix-otp-input
+        [parentForm]="formGroup">
+      </ix-otp-input>
+    </div>
+    <div class="mdl-dialog__actions">
+      <button
+        type="submit"
+        mdl-button
+        mdl-colored
+        mdl-ripple
+        [disabled]="!formGroup.valid">
+        Submit
+      </button>
+    </div>
+  </form>
+</mdl-dialog>

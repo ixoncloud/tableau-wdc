@@ -1,0 +1,14 @@
+<ng-container [formGroup]="parentForm">
+  <mdl-textfield
+    type="text"
+    id="emailInput"
+    name="email"
+    label="Email"
+    autocomplete="email"
+    error-msg="Please enter a valid email"
+    floating-label
+    autofocus
+    [class.is-invalid]="f['email'].errors && (f['email'].dirty || f['email'].touched)"
+    [formControlName]="'email'">
+  </mdl-textfield>
+</ng-container>

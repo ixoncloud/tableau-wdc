@@ -1,0 +1,14 @@
+<ng-container [formGroup]="parentForm">
+  <mdl-textfield
+    id="otpInput"
+    name="otp"
+    label="One-time Password"
+    error-msg="Please enter a valid one-time password"
+    floating-label
+    maxlength="6"
+    pattern="^[0-9]{6}$"
+    autofocus
+    [class.is-invalid]="f['otp'].errors && (f['otp'].dirty || f['otp'].touched)"
+    [formControlName]="'otp'">
+  </mdl-textfield>
+</ng-container>
