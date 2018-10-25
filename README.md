@@ -3,9 +3,12 @@
 
 Tableau-WDC is a Web Data Connector webapp for Tableau, which uses the IXlsi API to fetch data from the IXPlatform and exports it to Tableau.
 
-## Official instance
+## IXON hosted instance
 
-In case you are not looking into hosting Tableau-WDC yourself, IXON is hosting the latest version of the webapp [here](https://cdn.ixon.cloud/tableau/latest/).
+IXON is hosting the latest stable release of the webapp, in case you are not looking into hosting Tableau-WDC yourself.
+
+Simply paste the following URL in Tableau after selecting the `Web Data Connector` data source:
+https://cdn.ixon.cloud/tableau/latest/
 
 ## Getting Started
 
