@@ -3,11 +3,25 @@
 
 Tableau-WDC is a Web Data Connector webapp for Tableau, which uses the IXlsi API to fetch data from the IXPlatform and exports it to Tableau.
 
-## Official instance
-
-In case you are not looking into hosting Tableau-WDC yourself, IXON is hosting the latest version of the webapp [here](https://cdn.ixon.cloud/tableau/latest/).
-
 ## Getting Started
+
+### Prerequisites
+
+In order to use IXON Tableau-WDC you will need a copy of Tableau.
+
+The webapp has been tested with Tableau Desktop and Tableau Public.
+
+To get a copy of Tableau Public for free, visit the site: https://public.tableau.com/
+
+### IXON hosted instance
+
+IXON is hosting the latest stable release of the webapp, in case you are not looking into hosting Tableau-WDC yourself.
+
+Simply paste the following URL in Tableau after selecting the data source "Web Data Connector":
+
+https://cdn.ixon.cloud/tableau/latest/
+
+## Development
 
 ### Prerequisites
 
@@ -17,7 +31,7 @@ In order to develop, test & build Tableau-WDC you'll need the following installe
 
 You will also need an IXON Application ID in order to be able to let the webapp communicate with the IXPlatform.
 
-### Development
+### Running
 * Run `npm install` or `yarn` to install all dependencies.
 
 * Setup your development environment file:
@@ -26,7 +40,7 @@ You will also need an IXON Application ID in order to be able to let the webapp 
   
 * Run `npm run start` or `yarn start` to start the angular-cli development server.
 
-### Production
+### Building for Production
 * Run `npm install --production` or `yarn --production` to install all production dependencies.
 
 * Setup your production environment file:
