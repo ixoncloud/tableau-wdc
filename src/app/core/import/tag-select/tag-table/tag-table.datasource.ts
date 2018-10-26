@@ -1,7 +1,7 @@
 import {DataSource} from '@angular/cdk/table';
 import {CollectionViewer} from '@angular/cdk/collections';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {Tag} from '../../../ix-api/ix-api-responses';
+import {Tag} from '../../../ix-api/tag.model';
 
 /**
  * Data source for the table

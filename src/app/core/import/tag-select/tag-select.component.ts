@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Tag} from '../../ix-api/ix-api-responses';
+import {Tag} from '../../ix-api/tag.model';
 import {ImportService} from '../import.service';
 import {BehaviorSubject} from 'rxjs';
 import {ImportConfiguration} from '../import.model';

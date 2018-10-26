@@ -110,6 +110,10 @@ export class AuthService {
     );
   }
 
+  /**
+   * Callback for when access token has been created
+   * @param accessToken - Access token that has been created
+   */
   private onAccessTokenCreated(accessToken: string) {
     Log.d(this.TAG, 'Created new access token!');
     this.hasLoadedAuth = true;

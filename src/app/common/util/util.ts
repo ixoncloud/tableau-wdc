@@ -1,4 +1,4 @@
-import {Tag} from '../../core/ix-api/ix-api-responses';
+import {Tag} from '../../core/ix-api/tag.model';
 import * as moment from 'moment';
 
 /**

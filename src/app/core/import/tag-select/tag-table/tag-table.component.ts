@@ -2,10 +2,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TagTableDataSource} from './tag-table.datasource';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Agent} from '../../../agent/agent.model';
-import {Device, Tag} from '../../../ix-api/ix-api-responses';
+import {Tag} from '../../../ix-api/tag.model';
 import {flattenArray} from '../../../../common/util/util';
 import {FORMULA_OPERATOR_OPTIONS, POSTAGGR_OPTIONS, POSTAGGR_OPTIONS_NUMBER} from '../../../../common/constants';
 import {ControlContainer, NgForm} from '@angular/forms';
+import {Device} from '../../../ix-api/device.model';
 
 @Component({
   selector: 'ix-tag-table',

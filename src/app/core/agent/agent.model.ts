@@ -1,4 +1,4 @@
-import {Device} from '../ix-api/ix-api-responses';
+import {Device} from '../ix-api/device.model';
 
 /**
  * Represents an Agent

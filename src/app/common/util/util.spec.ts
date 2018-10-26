@@ -1,6 +1,6 @@
 import {inject} from '@angular/core/testing';
 import {flattenArray, getApiDate, getTableauDate, getTagType} from './util';
-import {Tag} from '../../core/ix-api/ix-api-responses';
+import {Tag} from '../../core/ix-api/tag.model';
 import * as moment from 'moment';
 
 describe('GeneralUtils', function () {

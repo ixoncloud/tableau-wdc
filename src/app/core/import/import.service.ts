@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {ImportConfiguration} from './import.model';
-import {Tag} from '../ix-api/ix-api-responses';
+import {Tag} from '../ix-api/tag.model';
 import {getApiDate} from '../../common/util/util';
 import * as moment from 'moment';
 
