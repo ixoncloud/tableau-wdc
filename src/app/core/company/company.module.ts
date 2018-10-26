@@ -3,11 +3,13 @@ import {CommonModule} from '@angular/common';
 import {CompanySelectComponent} from './company-select/company-select.component';
 import {CompanyService} from './company.service';
 import {AppThemeModule} from '../theme/app-theme.module';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     AppThemeModule,
+    ReactiveFormsModule
   ],
   declarations: [
     CompanySelectComponent

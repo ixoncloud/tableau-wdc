@@ -1,9 +1,11 @@
-<div ngModelGroup="tagSelect">
-  <div *ngFor="let agent of getAgents()">
-    <h5>Tags - {{agent.name}}</h5>
-    <ix-tag-table
-      [agent]="agent"
-      (tagChange)="onTagChange($event.agentId, $event.deviceId, $event.tag, $event.selected)">
-    </ix-tag-table>
+<ng-container [formGroup]="parentForm">
+  <div formArrayName="agents">
+    <div *ngFor="let agent of agents">
+      <h5>Tags - {{agent.name}}</h5>
+      <!--<ix-tag-table-->
+      <!--[formGroupName]="i"-->
+      <!--[agent]="agent">-->
+      <!--</ix-tag-table>-->
+    </div>
   </div>
-</div>
+</ng-container>

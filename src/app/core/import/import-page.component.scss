@@ -63,3 +63,14 @@ mdl-card-actions {
   height: 100%;
   overflow: auto;
 }
+
+.debugInfo {
+  position: absolute;
+  background-color: #fff;
+  z-index: 1000;
+  width: 40em;
+  height: 20em;
+  margin: 20px;
+  padding: 15px;
+  right: 20px;
+}

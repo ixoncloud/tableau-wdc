@@ -3,12 +3,12 @@ import {CommonModule} from '@angular/common';
 import {DateSelectComponent} from './date-select/date-select.component';
 import {AppThemeModule} from '../core/theme/app-theme.module';
 import {DpDatePickerModule} from 'ng2-date-picker';
-import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     AppThemeModule,
     DpDatePickerModule
   ],

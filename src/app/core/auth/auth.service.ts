@@ -9,8 +9,8 @@ import {AuthStorage} from './auth-storage';
 import {map, tap} from 'rxjs/operators';
 import {createBasicAuthString} from './auth-utils';
 import {Log} from '../../common/util/logger';
-import {ImportConfig} from '../import/import.model';
 import * as moment from 'moment';
+import {ImportConfiguration} from '../import/import-config.model';
 
 /**
  * Service used for getting authenticated for both the IX API and IXlsi API
@@ -135,7 +135,7 @@ export class AuthService {
    * Get authorzation token
    * @param config - Configuration to be used to get the company id
    */
-  createAuthorizationToken(config: ImportConfig): Observable<string> {
+  createAuthorizationToken(config: ImportConfiguration): Observable<string> {
     return this.http.post<ApiResponse<CreateAuthorizationTokenResponse>>(`${this.ixApiService.apiEndpoints['AuthorizationTokenList']}`,
       {expiresIn: environment.lsiApiExpire}, {
         headers: {

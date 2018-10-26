@@ -1,13 +1,15 @@
-<mdl-select
-  id="selectCompany"
-  name="selectCompany"
-  label="Select a company"
-  floating-label
-  [disabled]="disabled"
-  (change)="onChange($event)">
-  <mdl-option
-    *ngFor="let company of companies;"
-    [value]="company.publicId">
-    {{company.name}}
-  </mdl-option>
-</mdl-select>
+<ng-container [formGroup]="parentForm">
+  <mdl-select
+    id="selectCompany"
+    name="selectCompany"
+    label="Select a company"
+    floating-label
+    formControlName="companyId">
+    <mdl-option
+      *ngFor="let company of companies;"
+      [value]="company?.publicId">
+      {{company?.name}}
+    </mdl-option>
+  </mdl-select>
+
+</ng-container>

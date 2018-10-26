@@ -1,97 +1,47 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
-import {ImportConfiguration} from './import.model';
-import {Tag} from '../ix-api/tag.model';
-import {getApiDate} from '../../common/util/util';
-import * as moment from 'moment';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 /**
- * Service that keeps track of import configuration
+ * Service that keeps track of import form
  */
 @Injectable()
 export class ImportService {
-  /**
-   * Contains the current selection
-   */
-  public importSelection = new BehaviorSubject<ImportConfiguration>({
-    selectedCompany: undefined,
-    agents: {},
-    startingDate: getApiDate(moment().add(-2, 'y')),
-    endingDate: getApiDate(moment())
-  });
 
-  /**
-   * Sets the selected company
-   * @param companyId - Company to be selected
-   */
-  setSelectedCompany(companyId: string) {
-    this.importSelection.next({...this.importSelection.value, selectedCompany: companyId, agents: {}});
+  public importForm: FormGroup;
+
+  constructor(private readonly fb: FormBuilder) {
+    this.importForm = this.buildForm();
+    this.importForm.controls['companyId'].valueChanges.subscribe(() => this.clearAgents());
+    this.importForm.valueChanges.subscribe(val => console.log(JSON.stringify(val)));
   }
 
-  /**
-   * Sets if the agent is selected or not
-   * @param agentId - Id of the agent
-   * @param checked - Checked state
-   */
-  setAgentSelected(agentId: string, checked: boolean) {
-    this.importSelection.next({
-      ...this.importSelection.value,
-      agents: {
-        ...this.importSelection.value.agents,
-        [agentId]: checked ? {} : undefined
-      }
+  private buildForm() {
+    return this.fb.group({
+      companyId: this.fb.control('', Validators.required), // TODO: DISABLE
+      startDate: this.fb.control('', Validators.required),
+      endDate: this.fb.control('', Validators.required),
+      agents: this.fb.array([], [Validators.required])
     });
   }
 
-  /**
-   * Sets the tag's state
-   * @param agentId - id of agent of tag
-   * @param deviceId - id of device of tag
-   * @param tag - The tag to be changed
-   * @param selected - if the tag is selected or not
-   */
-  setTagState(agentId: string, deviceId: string, tag: Tag, selected: boolean) {
-    this.importSelection.next(
-      {
-        ...this.importSelection.value,
-        agents: {
-          ...this.importSelection.value.agents,
-          [agentId]: {
-            ...this.importSelection.value.agents[agentId],
-            [deviceId]: {
-              ...this.importSelection.value.agents[agentId][deviceId],
-              [tag.tagId]: selected ? {
-                limit: tag.limit,
-                postAggr: tag.postAggr,
-                formulaFactor: tag.postFactor,
-                formulaOperator: tag.operator,
-              } : undefined,
-            }
-          }
-        }
-      }
-    );
+  addAgent(agentId: string) {
+    const agents = (this.importForm.controls['agents'] as FormArray);
+
+    agents.push(this.fb.group({
+      agentId: this.fb.control(agentId),
+      devices: this.fb.array([], Validators.required)
+    }));
   }
 
-  /**
-   * Sets the starting date of the import data
-   * @param newDate - String format of the starting date
-   */
-  setStartingDate(newDate: string) {
-    this.importSelection.next({
-      ...this.importSelection.value,
-      startingDate: newDate
-    });
+  removeAgent(agentId: string) {
+    const agentControls = (this.importForm.controls['agents'] as FormArray);
+    agentControls.removeAt(agentControls.value.findIndex(agent => agent.agentId === agentId));
   }
 
-  /**
-   * Sets the ending date of the import data
-   * @param newDate - String format of the ending date
-   */
-  setEndingDate(newDate: string) {
-    this.importSelection.next({
-      ...this.importSelection.value,
-      endingDate: newDate
-    });
+  private clearAgents() {
+    const agentControls = (this.importForm.controls['agents'] as FormArray);
+    while (agentControls.length !== 0) {
+      agentControls.removeAt(0);
+    }
   }
 }

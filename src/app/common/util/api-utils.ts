@@ -3,7 +3,7 @@ import {concat, delay, mergeMap, retryWhen, take} from 'rxjs/operators';
 import {of, throwError} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {HttpErrorResponse} from '@angular/common/http';
-import {ImportAgent} from '../../core/import/import.model';
+import {AgentImportConfiguration} from '../../core/import/import-config.model';
 
 /**
  * Creates quick lookup object from discovery endpoint response
@@ -37,7 +37,7 @@ export function retryHttpRequest() {
  * Generates an IxLsi request body based on an agent given
  * @param agent - agent to generate request body for
  */
-export function generateIxLsiRequestBody(agent: ImportAgent): any {
+export function generateIxLsiRequestBody(agent: AgentImportConfiguration): any {
   const body = {};
   for (const device of agent.devices) {
     body[device.deviceId] = {};

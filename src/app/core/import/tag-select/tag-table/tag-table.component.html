@@ -1,17 +1,13 @@
-<table cdk-table class="mdl-data-table" [dataSource]="dataSource" ngModelGroup="table_{{agent.publicId}}">
+<table cdk-table class="mdl-data-table" [dataSource]="dataSource">
   <ng-container cdkColumnDef="select">
     <th cdk-header-cell *cdkHeaderCellDef>
       <mdl-checkbox
-        (change)="masterToggle()"
-        [ngModel]="selection.hasValue() && isAllSelected()"
-        [ngModelOptions]="{standalone: true}">
+        (change)="masterToggle()">
       </mdl-checkbox>
     </th>
     <td cdk-cell *cdkCellDef="let row">
       <mdl-checkbox (click)="$event.stopPropagation()"
-                    (change)="toggleCheckBox(row)"
-                    [ngModel]="selection.isSelected(row)"
-                    [ngModelOptions]="{standalone: true}">
+                    (change)="toggleCheckBox(row)">
       </mdl-checkbox>
     </td>
   </ng-container>
@@ -26,10 +22,7 @@
         floating-label
         required
         label="Post-aggregator"
-        name="{{i}}_postAggr"
         class="post_aggregator"
-        [(ngModel)]="tags[i].postAggr"
-        #postAggrSelect="ngModel"
         error-msg="Please select a post-formula"
         [disabled]="!selection.isSelected(tag)"
         [class.is-invalid]="postAggrSelect.errors && (postAggrSelect.dirty || postAggrSelect.touched)"
@@ -50,8 +43,6 @@
         required
         class="limit"
         name="{{i}}_limit"
-        [(ngModel)]="tags[i].limit"
-        #limitInput="ngModel"
         pattern="^[0-9]+$"
         [disabled]="!selection.isSelected(tag) || !tags[i].postAggr"
         error-msg="Please enter a valid limit"
@@ -67,9 +58,6 @@
         floating-label
         label="Operator"
         class="formula_operator"
-        name="{{i}}_formula_operator"
-        [(ngModel)]="tags[i].operator"
-        #formulaOperatorSelect="ngModel"
         error-msg="Please select a formula operator"
         [disabled]="!selection.isSelected(tag) || shouldDisableFormula(tag)"
         [class.is-invalid]="formulaOperatorSelect.errors && (formulaOperatorSelect.dirty || formulaOperatorSelect.touched)"
@@ -85,8 +73,6 @@
         class="formula_factor"
         required
         name="{{i}}_formula_factor"
-        [(ngModel)]="tags[i].postFactor"
-        #formulaFactorInput="ngModel"
         pattern="^[0-9]+$"
         [disabled]="!formulaOperatorSelect.value || !selection.isSelected(tag)"
         error-msg="Please enter a valid formula operator"

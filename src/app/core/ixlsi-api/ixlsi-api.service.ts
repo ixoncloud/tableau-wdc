@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {createEndpointObject, generateIxLsiRequestBody, retryHttpRequest} from '../../common/util/api-utils';
 import {Log} from '../../common/util/logger';
 import {AgentService} from '../agent/agent.service';
-import {ImportAgent} from '../import/import.model';
+import {AgentImportConfiguration} from '../import/import-config.model';
 
 /**
  * Service for discovery of the IxLsi API
@@ -68,7 +68,7 @@ export class IXLsiApiService {
    * @param fromDate - Start date for data
    * @param toDate - End date for data
    */
-  getTagData(agent: ImportAgent, fromDate: string, toDate: string): Observable<string> {
+  getTagData(agent: AgentImportConfiguration, fromDate: string, toDate: string): Observable<string> {
     Log.d(this.TAG, `Fetching data for Agent "${agent.agentId}".`);
     return this.http.post(`${this.apiEndpoints[agent.agentId]['DataExportMultiple']}`,
       generateIxLsiRequestBody(agent),

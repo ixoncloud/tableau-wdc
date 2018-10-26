@@ -3,13 +3,13 @@ import {forkJoin, Observable, Subject} from 'rxjs';
 import {AuthService} from '../auth/auth.service';
 import {Log} from '../../common/util/logger';
 import {IXLsiApiService} from '../ixlsi-api/ixlsi-api.service';
-import {ImportAgent, ImportConfig, ImportConfiguration, ImportDevice, ImportTag} from '../import/import.model';
 import {InitService} from '../init/init.service';
 import {flatMap, tap} from 'rxjs/operators';
 import {LsiCsvParser} from '../../common/util/lsi-csv-parser';
 import {getWDCTableSchema} from './wdc-util';
 import {AgentService} from '../agent/agent.service';
 import {CONNECTION_NAME} from '../../common/constants';
+import {AgentImportConfiguration, ImportConfiguration} from '../import/import-config.model';
 import TableInfo = tableau.TableInfo;
 import Table = tableau.Table;
 
@@ -55,39 +55,8 @@ export class WdcService {
    * Saves the importConfiguration data to tableau connectiondata and starts gatherData phase
    * @parma importConfiguration - The comfiguration to use when importing
    */
-  static startDataImport(importConfiguration: ImportConfiguration) {
-    const importAgents = [];
-    for (const agentId in importConfiguration.agents) {
-      const importAgent = new ImportAgent(agentId, []);
-      for (const deviceId in importConfiguration.agents[agentId]) {
-        const importDevice = new ImportDevice(deviceId, []);
-        for (const tagId in importConfiguration.agents[agentId][deviceId]) {
-          const currTag: any = importConfiguration.agents[agentId][deviceId][tagId];
-          if (currTag !== undefined) {
-            const limit = currTag.limit ? +currTag.limit : undefined;
-            const postAggr = currTag.postAggr ? currTag.postAggr : undefined;
-            const formulaOperator = currTag.formulaOperator ? currTag.formulaOperator : undefined;
-            const formulaFactor = currTag.formulaFactor ? +currTag.formulaFactor : undefined;
-            importDevice.tags.push(new ImportTag(+tagId, limit, postAggr, formulaOperator, formulaFactor));
-          }
-        }
-        if (importDevice.tags.length > 0) {
-          importAgent.devices.push(importDevice);
-        }
-      }
-      if (importAgent.devices.length > 0) {
-        importAgents.push(importAgent);
-      }
-    }
-
-    const importConfig = new ImportConfig(
-      importConfiguration.selectedCompany,
-      importAgents,
-      importConfiguration.startingDate,
-      importConfiguration.endingDate,
-    );
-
-    tableau.connectionData = JSON.stringify(importConfig);
+  static startDataImport(agentConfig: ImportConfiguration) {
+    tableau.connectionData = JSON.stringify(agentConfig);
     tableau.submit();
   }
 
@@ -144,7 +113,7 @@ export class WdcService {
   /**
    * Loads the config from tableau connection data
    */
-  loadConfig(): ImportConfig {
+  loadConfig(): ImportConfiguration {
     Log.d(this.TAG, 'Loading config...');
     tableau.reportProgress('Loading data...');
     return JSON.parse(tableau.connectionData);
@@ -154,7 +123,7 @@ export class WdcService {
    * Loads the config from localstorage and fetches data
    * @param config = Config to fetch data for
    */
-  fetchData(config: ImportConfig) {
+  fetchData(config: ImportConfiguration) {
     Log.d(this.TAG, 'Fetching data...');
     return forkJoin(
       ...config.agents.map(configAgent => this.fetchDataForAgent(config.companyId, configAgent, config.startDate, config.endDate))
@@ -162,7 +131,8 @@ export class WdcService {
   }
 
 
-  private fetchDataForAgent(companyId: string, configAgent: ImportAgent, startDate: string, endDate: string): Observable<string> {
+  private fetchDataForAgent(companyId: string, configAgent: AgentImportConfiguration,
+                            startDate: string, endDate: string): Observable<string> {
     return this.ixLsiApiService.getTagData(
       configAgent, startDate, endDate
     ).pipe(
@@ -176,7 +146,7 @@ export class WdcService {
    * @param companyId - Company id of export
    * @param configAgent - Agent data has been fetched of
    */
-  private onAgentDataFetched(csv: string, companyId: string, configAgent: ImportAgent) {
+  private onAgentDataFetched(csv: string, companyId: string, configAgent: AgentImportConfiguration) {
     Log.d(this.TAG, 'Parsing CSV...');
     tableau.reportProgress('Parsing CSV...');
     const agent = this.agentService.agents.get(companyId).find(currAgent => currAgent.publicId === configAgent.agentId);

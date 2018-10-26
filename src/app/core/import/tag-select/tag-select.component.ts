@@ -1,24 +1,36 @@
-import {Component, OnInit} from '@angular/core';
-import {Tag} from '../../ix-api/tag.model';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ImportService} from '../import.service';
-import {BehaviorSubject} from 'rxjs';
-import {ImportConfiguration} from '../import.model';
 import {AgentService} from '../../agent/agent.service';
-import {ControlContainer, NgForm} from '@angular/forms';
+import {FormArray, FormGroup} from '@angular/forms';
+import {Agent} from '../../agent/agent.model';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'ix-tag-select',
   templateUrl: './tag-select.component.html',
-  styleUrls: ['./tag-select.component.css'],
-  viewProviders: [
-    {
-      provide: ControlContainer,
-      useExisting: NgForm
-    }
-  ]
+  styleUrls: ['./tag-select.component.css']
 })
-export class TagSelectComponent implements OnInit {
-  public selected: BehaviorSubject<ImportConfiguration>;
+export class TagSelectComponent implements OnInit, OnDestroy {
+
+  /**
+   * Parent form
+   */
+  public parentForm: FormGroup;
+
+  /**
+   * Agents form array
+   */
+  public agentsFormArray: FormArray;
+
+  /**
+   * All selected agents
+   */
+  public agents: Agent[] = [];
+
+  /**
+   * Subscription for agents form array
+   */
+  private agentsFormArraySubscription: Subscription;
 
   constructor(
     private readonly agentService: AgentService,
@@ -27,34 +39,30 @@ export class TagSelectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.selected = this.importService.importSelection;
+    this.parentForm = this.importService.importForm;
+    this.agentsFormArray = <FormArray>this.parentForm.controls['agents'];
+
+    this.updateAgents(this.agentsFormArray.value);
+    this.agentsFormArraySubscription = this.agentsFormArray.valueChanges.subscribe(newSelection => {
+      this.updateAgents(newSelection);
+    });
   }
 
-  /**
-   * Called when tag has changed
-   * @param agentId - Id of agent of changed tag
-   * @param deviceId - Id of device of changed tag
-   * @param tag - The tag that changed
-   * @param selected - If the tag is currently selected or not
-   */
-  onTagChange(agentId: string, deviceId: string, tag: Tag, selected: boolean) {
-    this.importService.setTagState(agentId, deviceId, tag, selected);
+  ngOnDestroy() {
+    this.agentsFormArraySubscription.unsubscribe();
   }
 
   /**
    * Retrieves all selected agents
    */
-  getAgents() {
+  updateAgents(newSelection) {
     const selectedAgents = [];
-    const agents = this.selected.value.agents;
-    for (const key in agents) {
-      if (agents[key] !== undefined) {
-        const agent = this.agentService.agents
-          .get(this.importService.importSelection.value.selectedCompany)
-          .find(selectedAgentOfCompany => selectedAgentOfCompany.publicId === key);
-        selectedAgents.push(agent);
-      }
+    for (const selectedAgent of newSelection) {
+      const agent = this.agentService.agents
+        .get(this.parentForm.controls['companyId'].value)
+        .find(selectedAgentOfCompany => selectedAgentOfCompany.publicId === selectedAgent.agentId);
+      selectedAgents.push(agent);
     }
-    return selectedAgents;
+    this.agents = selectedAgents;
   }
 }

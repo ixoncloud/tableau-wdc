@@ -1,38 +1,33 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Company} from '../../company/company.model';
 import {AgentSelectionEvent} from '../../agent/agent-select/agent-selection.event';
-import {BehaviorSubject} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {CompanyService} from '../../company/company.service';
 import {ImportService} from '../import.service';
-import {ImportConfiguration} from '../import.model';
 import {AgentService} from '../../agent/agent.service';
-import {ControlContainer, NgForm} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'ix-import-sidebar',
   templateUrl: './import-sidebar.component.html',
-  styleUrls: ['./import-sidebar.component.css'],
-  viewProviders: [
-    {
-      provide: ControlContainer,
-      useExisting: NgForm
-    }
-  ]
+  styleUrls: ['./import-sidebar.component.css']
 })
-export class ImportSidebarComponent implements OnInit {
+export class ImportSidebarComponent implements OnInit, OnDestroy {
+
+  /**
+   * Parent form
+   */
+  public parentForm: FormGroup;
 
   /**
    * All companies known to app
    */
-  public companies: BehaviorSubject<Company[]>;
+  public companies: Company[];
+
+  public companiesSubscription: Subscription;
 
   /**
-   * Import configuration
-   */
-  public selected: BehaviorSubject<ImportConfiguration>;
-
-  /**
-   * Triggered when agent changes
+   * Triggers when agent changes
    */
   @Output() agentChange = new EventEmitter<AgentSelectionEvent>();
 
@@ -41,18 +36,20 @@ export class ImportSidebarComponent implements OnInit {
     private agentService: AgentService,
     private importService: ImportService,
   ) {
+    this.parentForm = this.importService.importForm;
   }
 
   /**
    * Returns all agents of current company
    */
   get agents() {
-    return this.agentService.agents.get(this.importService.importSelection.value.selectedCompany);
+    return this.agentService.agents.get(this.parentForm.controls['companyId'].value);
   }
 
   ngOnInit() {
-    this.companies = this.companyService.companySubject;
-    this.selected = this.importService.importSelection;
+    this.companiesSubscription = this.companyService.companySubject.subscribe(newCompanies => {
+      this.companies = newCompanies;
+    });
   }
 
   /**
@@ -60,30 +57,14 @@ export class ImportSidebarComponent implements OnInit {
    * @param event - Agent selection event
    */
   onAgentChange(event: AgentSelectionEvent) {
-    this.importService.setAgentSelected(event.agentId, event.checked);
+    if (event.checked) {
+      this.importService.addAgent(event.agentId);
+    } else {
+      this.importService.removeAgent(event.agentId);
+    }
   }
 
-  /**
-   * Called when the company changes
-   * @param companyId - The id of the new company
-   */
-  onCompanyChange(companyId: string) {
-    this.importService.setSelectedCompany(companyId);
-  }
-
-  /**
-   * Called when the ending date changes
-   * @param newDate - New ending date
-   */
-  onEndingDateChange(newDate: string) {
-    this.importService.setEndingDate(newDate);
-  }
-
-  /**
-   * Called when the starting date changes
-   * @param newDate - New starting date
-   */
-  onStartingDateChange(newDate: string) {
-    this.importService.setStartingDate(newDate);
+  ngOnDestroy(): void {
+    this.companiesSubscription.unsubscribe();
   }
 }

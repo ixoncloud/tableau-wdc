@@ -1,23 +1,17 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TagTableDataSource} from './tag-table.datasource';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Agent} from '../../../agent/agent.model';
 import {Tag} from '../../../ix-api/tag.model';
 import {flattenArray} from '../../../../common/util/util';
 import {FORMULA_OPERATOR_OPTIONS, POSTAGGR_OPTIONS, POSTAGGR_OPTIONS_NUMBER} from '../../../../common/constants';
-import {ControlContainer, NgForm} from '@angular/forms';
 import {Device} from '../../../ix-api/device.model';
+import {ControlContainer, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'ix-tag-table',
   templateUrl: './tag-table.component.html',
-  styleUrls: ['./tag-table.component.css'],
-  viewProviders: [
-    {
-      provide: ControlContainer,
-      useExisting: NgForm
-    }
-  ]
+  styleUrls: ['./tag-table.component.css']
 })
 export class TagTableComponent implements OnInit {
 
@@ -27,10 +21,8 @@ export class TagTableComponent implements OnInit {
   @Input() agent: Agent;
 
   /**
-   * Emits when a tag is changed in this table
+   * All tags of the agent
    */
-  @Output() tagChange = new EventEmitter<{ agentId: string, deviceId: string, tag: Tag, selected: boolean }>();
-
   public tags: Tag[];
 
   /**
@@ -48,7 +40,16 @@ export class TagTableComponent implements OnInit {
    */
   selection = new SelectionModel<Tag>(true, []);
 
+  /**
+   * Parent form
+   */
+  public parentForm: FormGroup;
+
+  constructor(private controlContainer: ControlContainer) {
+  }
+
   ngOnInit() {
+    this.parentForm = <FormGroup>this.controlContainer.control;
     this.tags = flattenArray(this.agent.devices.map(device => device.tags));
     this.dataSource.updateData(this.tags);
   }

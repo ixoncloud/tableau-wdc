@@ -1,24 +1,12 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ControlContainer, NgForm} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {ControlContainer, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'ix-date-select',
   templateUrl: './date-select.component.html',
-  styleUrls: ['./date-select.component.css'],
-  viewProviders: [
-    {
-      provide: ControlContainer,
-      useExisting: NgForm
-    }
-  ]
+  styleUrls: ['./date-select.component.css']
 })
-export class DateSelectComponent {
-
-  /**
-   * Date to be displayed
-   */
-  @Input() date: string;
-
+export class DateSelectComponent implements OnInit {
   /**
    * Minimum date to be able to select
    */
@@ -30,17 +18,30 @@ export class DateSelectComponent {
   @Input() minDate: string;
 
   /**
-   * Triggered when user selects a new date
-   */
-  @Output() dateChange = new EventEmitter<string>();
-
-  /**
    * Label to use for the date input
    */
   @Input() label: string;
 
   /**
-   * Name for ngModel
+   * Name used in form
    */
   @Input() formName: string;
+
+  /**
+   * Parent form
+   */
+  public parentForm: FormGroup;
+
+  /**
+   * Date select for validation
+   */
+  public dateSelect: FormControl;
+
+  constructor(private controlContainer: ControlContainer) {
+  }
+
+  ngOnInit(): void {
+    this.parentForm = <FormGroup>this.controlContainer.control;
+    this.dateSelect = <FormControl>this.parentForm.controls[this.formName];
+  }
 }

@@ -1,5 +1,5 @@
 <div class="cardContainer">
-  <form (ngSubmit)="onSubmitPressed()" #importForm="ngForm">
+  <form (ngSubmit)="onSubmitPressed()" [formGroup]="importForm">
     <mdl-card mdl-shadow="2">
       <mdl-card-title>
         <h2 mdl-card-title-text>Select data to import</h2>
@@ -18,7 +18,7 @@
           mdl-button
           mdl-colored
           mdl-ripple
-          [disabled]="selectedTagCount === 0 || !importForm.valid">
+          [disabled]="!importForm.valid">
           submit
         </button>
       </mdl-card-actions>
@@ -26,3 +26,7 @@
   </form>
 </div>
 
+<mdl-card mdl-shadow="2" class="debugInfo">
+  <ngx-json-viewer [json]="importForm.value">
+  </ngx-json-viewer>
+</mdl-card>

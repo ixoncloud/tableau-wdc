@@ -1,37 +1,27 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Company} from '../company.model';
+import {ControlContainer, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'ix-company-select',
   templateUrl: './company-select.component.html',
   styleUrls: ['./company-select.component.css']
 })
-export class CompanySelectComponent {
-
-  /**
-   * If input should be disabled
-   */
-  @Input() disabled: boolean;
-
+export class CompanySelectComponent implements OnInit {
   /**
    * All companies
    */
   @Input() companies: Company[];
 
   /**
-   * Output for when a company has been selected
+   * Parent form
    */
-  @Output() companySelect = new EventEmitter<String>();
+  public parentForm: FormGroup;
 
-  constructor() {
+  constructor(private controlContainer: ControlContainer) {
   }
 
-  /**
-   * Called when a new company has been selected
-   * @param companyId
-   */
-  onChange(companyId: string) {
-    this.companySelect.emit(companyId);
+  ngOnInit(): void {
+    this.parentForm = <FormGroup>this.controlContainer.control;
   }
-
 }
