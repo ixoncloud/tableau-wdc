@@ -44,8 +44,6 @@ export function getTagType(tag: Tag): string {
  * Flattens an array
  * @param arr - The array to be flattened
  */
-export function flattenArray(arr) {
-  return arr.reduce(function (flat, toFlatten) {
-    return flat.concat(Array.isArray(toFlatten) ? flattenArray(toFlatten) : toFlatten);
-  }, []);
+export function flattenArray<T>(arr: T[]): T {
+  return [].concat.apply([], arr);
 }

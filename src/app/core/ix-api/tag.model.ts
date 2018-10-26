@@ -3,19 +3,7 @@
  * @ignore
  */
 export interface Tag {
-  limit?: number;
-  postAggr?: string;
-  operator?: string;
-  postFactor?: number;
-  downsamplingInterval?: number;
-  factor?: number;
-  name?: string;
-  width?: string;
-  type?: string;
-  edgeAggregator?: string;
-  dataPointsLogged?: any;
-  signed?: boolean;
-  dataPointsUpdated?: any;
+  address?: string;
   aggregators?: {
     mean?: boolean,
     max?: boolean,
@@ -23,14 +11,22 @@ export interface Tag {
     count?: boolean,
     first?: boolean,
   };
-  retentionPolicy?: string;
-  loggingInterval?: string;
-  address?: string;
-  valuesPerHour?: number;
+  dataPointsLogged?: any;
+  dataPointsUpdated?: any;
+  downsamplingInterval?: number;
+  edgeAggregator?: string;
+  factor?: number;
   internalUse?: boolean;
+  loggingInterval?: string;
   maxStringLength?: number;
-  stableValue?: boolean;
+  name?: string;
+  retentionPolicy?: string;
   sectorData?: any;
+  signed?: boolean;
+  stableValue?: boolean;
   tagId?: number;
+  type?: string;
   unit?: string;
+  valuesPerHour?: number;
+  width?: string;
 }
