@@ -11,6 +11,8 @@ import {Observable} from 'rxjs';
 import {CompanyService} from '../company/company.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Company} from '../company/company.model';
+import {ErrorService} from '../error/error.service';
+import {ErrorMessage} from '../error/messages';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,8 @@ export class InitService {
     private readonly ixApiService: IXApiService,
     private readonly ixLsiApiService: IXLsiApiService,
     private readonly companyService: CompanyService,
-    private readonly agentService: AgentService
+    private readonly agentService: AgentService,
+    private readonly errorService: ErrorService,
   ) {
   }
 
@@ -72,6 +75,7 @@ export class InitService {
         }
         default: {
           Log.e(this.TAG, 'Unhandled errror response, showing error page');
+          this.errorService.setErrorMessage(ErrorMessage.API_ERROR);
           this.router.navigate(['/error']);
           break;
         }
