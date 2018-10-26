@@ -13,6 +13,7 @@ import {AuthModule} from './core/auth/auth.module';
 import {ImportModule} from './core/import/import.module';
 import {CompanyModule} from './core/company/company.module';
 import {AgentModule} from './core/agent/agent.module';
+import {LoadingPageComponent} from './core/loading/loading-page.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import {AgentModule} from './core/agent/agent.module';
   declarations: [
     AppComponent,
     ErrorPageComponent,
+    LoadingPageComponent,
   ],
   providers: [
     {

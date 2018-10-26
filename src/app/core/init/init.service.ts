@@ -12,7 +12,7 @@ import {CompanyService} from '../company/company.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Company} from '../company/company.model';
 import {ErrorService} from '../error/error.service';
-import {ErrorMessage} from '../error/messages';
+import {AppErrors} from '../error/error';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +40,7 @@ export class InitService {
     let initialization;
     // Enables tagChange detection since we're
     return this.zone.run(() => {
+      this.router.navigate(['/import']);
       // Try load access token from localstorage
       const isLoggedIn = this.authService.loadAccessTokenFromPasswordStorage();
 
@@ -75,7 +76,7 @@ export class InitService {
         }
         default: {
           Log.e(this.TAG, 'Unhandled errror response, showing error page');
-          this.errorService.setErrorMessage(ErrorMessage.API_ERROR);
+          this.errorService.setErrorMessage(AppErrors.API_ERROR);
           this.router.navigate(['/error']);
           break;
         }

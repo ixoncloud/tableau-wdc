@@ -8,10 +8,13 @@ import {ErrorPageComponent} from '../error/error-page/error-page.component';
 import {LoginPageComponent} from '../auth/login-page/login-page.component';
 import {AuthModule} from '../auth/auth.module';
 import {ImportPageComponent} from '../import/import-page.component';
+import {LoadingPageComponent} from '../loading/loading-page.component';
+import {ErrorGuard} from '../error/error.guard';
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', component: ImportPageComponent, canActivate: [AuthGuard]},
-  {path: 'error', component: ErrorPageComponent},
+  {path: '', pathMatch: 'full', component: LoadingPageComponent},
+  {path: 'import', component: ImportPageComponent, canActivate: [AuthGuard]},
+  {path: 'error', component: ErrorPageComponent, canActivate: [ErrorGuard]},
   {path: 'login', component: LoginPageComponent, canActivate: [LoggedinGuard]}
 ];
 
@@ -26,6 +29,7 @@ const routes: Routes = [
   providers: [
     AuthGuard,
     LoggedinGuard,
+    ErrorGuard,
   ],
   exports: [
     RouterModule

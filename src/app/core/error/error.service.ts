@@ -1,19 +1,19 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {ErrorMessage} from './messages';
+import {AppError, AppErrors} from './error';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorService {
 
-  public errorMessage = new BehaviorSubject(ErrorMessage.UNKOWN_ERROR);
+  public currentError = new BehaviorSubject(AppErrors.NO_ERROR);
 
   constructor() {
   }
 
-  setErrorMessage(message: ErrorMessage) {
-    this.errorMessage.next(message);
+  setErrorMessage(message: AppError) {
+    this.currentError.next(message);
   }
 
 }

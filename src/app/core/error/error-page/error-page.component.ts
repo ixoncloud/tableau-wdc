@@ -11,8 +11,8 @@ export class ErrorPageComponent {
   public message: string;
 
   constructor(private readonly errorService: ErrorService) {
-    this.errorService.errorMessage.subscribe(newMessage => {
-      this.message = newMessage;
+    this.errorService.currentError.subscribe(newError => {
+      this.message = newError.message;
     });
   }
 

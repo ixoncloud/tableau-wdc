@@ -33,6 +33,10 @@ mdl-dialog-host-component {
   display: none; // Disable ripples on table checkboxes
 }
 
+.loadingpage_spinner .mdl-spinner__circle {
+  border-width: 4px !important;
+}
+
 $color-primary: 0, 72, 145;
 $color-primary-dark: 0, 34, 99;
 $color-accent: 79, 218, 255;

@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
       // We logged in successfully, redirect to import page
       this.snackbar.showToast('Successfully logged in', 3000);
 
-      this.router.navigate(['/']);
+      this.router.navigate(['/import']);
       this.isLoading = false;
     }
   }
