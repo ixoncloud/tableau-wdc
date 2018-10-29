@@ -9,6 +9,7 @@ import {
   MdlRippleModule,
   MdlShadowModule,
   MdlSnackbarModule,
+  MdlSpinnerModule,
   MdlTableModule,
   MdlTextFieldModule
 } from '@angular-mdl/core';
@@ -30,6 +31,7 @@ import {MdlPopoverModule} from '@angular-mdl/popover';
     MdlSelectModule,
     MdlCheckboxModule,
     MdlTableModule,
+    MdlSpinnerModule
   ],
   declarations: [],
   exports: [
@@ -46,6 +48,7 @@ import {MdlPopoverModule} from '@angular-mdl/popover';
     MdlTableModule,
     MdlDialogModule,
     MdlTableModule,
+    MdlSpinnerModule
   ]
 })
 export class AppThemeModule {

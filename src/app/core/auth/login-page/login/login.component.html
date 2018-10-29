@@ -1,4 +1,4 @@
-<form (ngSubmit)="submitLogin()" #loginForm="ngForm">
+<form (ngSubmit)="submitLogin()" [formGroup]="loginForm">
   <mdl-card mdl-shadow="2">
     <mdl-progress
       [indeterminate]="true"
@@ -8,35 +8,13 @@
       <img src="assets/img/logo.png" alt="IXON Logo" class="logo">
     </mdl-card-title>
     <mdl-card-supporting-text>
-      <mdl-textfield
-        type="text"
-        id="emailInput"
-        name="email"
-        label="Email"
-        autocomplete="email"
-        error-msg="Please enter a valid email"
-        floating-label
-        autofocus
-        required
-        email
-        #emailInput="ngModel"
-        [disabled]="isLoading"
-        [class.is-invalid]="emailInput.errors && (emailInput.dirty || emailInput.touched)"
-        [(ngModel)]="model.email"></mdl-textfield>
+      <ix-email-input
+        [parentForm]="loginForm">
+      </ix-email-input>
       <br>
-      <mdl-textfield
-        type="password"
-        id="passwordInput"
-        name="password"
-        label="Password"
-        autocomplete="current-password"
-        error-msg="Please enter your password"
-        floating-label
-        required
-        #passwordInput="ngModel"
-        [disabled]="isLoading"
-        [class.is-invalid]="passwordInput.errors && (passwordInput.dirty || passwordInput.touched)"
-        [(ngModel)]="model.password"></mdl-textfield>
+      <ix-password-input
+        [parentForm]="loginForm">
+      </ix-password-input>
     </mdl-card-supporting-text>
     <mdl-card-actions mdl-card-border>
       <div>
@@ -45,46 +23,15 @@
           mdl-button
           mdl-colored
           mdl-ripple
-          [disabled]="!loginForm.form.valid || isLoading">
+          [disabled]="!loginForm.valid || isLoading">
           Login
         </button>
       </div>
     </mdl-card-actions>
   </mdl-card>
 </form>
-<mdl-dialog
+<ix-otp-dialog
   #otpDialog
-  [mdl-dialog-config]="{
-  styles:{'width': '25rem'},
-  isModal:true,
-  animate: false,
-  enterTransitionDuration: 400,
-  leaveTransitionDuration: 400}">
-  <h3 class="mdl-dialog__title">One-time password</h3>
-  <form (ngSubmit)="submitLogin()" #otpForm="ngForm">
-    <div class="mdl-dialog__content">
-      <mdl-textfield
-        id="otpInput"
-        name="otp"
-        label="One-time password"
-        error-msg="Please enter a valid one-time password"
-        floating-label
-        maxlength="6"
-        pattern="^[0-9]{6}$"
-        #otpInput="ngModel"
-        required
-        autofocus
-        [class.is-invalid]="otpInput.errors && (otpInput.dirty || otpInput.touched)"
-        [(ngModel)]="model.otp"></mdl-textfield>
-    </div>
-    <div class="mdl-dialog__actions">
-      <button
-        type="submit"
-        mdl-button
-        mdl-colored
-        mdl-ripple
-        [disabled]="!otpForm.form.valid">Submit
-      </button>
-    </div>
-  </form>
-</mdl-dialog>
+  (submit)="submitLogin()"
+  [formGroup]="loginForm">
+</ix-otp-dialog>

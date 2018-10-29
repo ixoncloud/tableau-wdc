@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ErrorService} from '../error.service';
 
 @Component({
   selector: 'ix-error-page',
@@ -6,5 +7,13 @@ import {Component} from '@angular/core';
   styleUrls: ['./error-page.component.css']
 })
 export class ErrorPageComponent {
+
+  public message: string;
+
+  constructor(private readonly errorService: ErrorService) {
+    this.errorService.currentError.subscribe(newError => {
+      this.message = newError.message;
+    });
+  }
 
 }
