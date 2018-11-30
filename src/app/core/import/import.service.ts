@@ -16,7 +16,7 @@ export class ImportService {
   public importSelection = new BehaviorSubject<ImportConfiguration>({
     selectedCompany: undefined,
     agents: {},
-    startingDate: getApiDate(moment().add(-2, 'y')),
+    startingDate: getApiDate(moment().add(-1, 'd')),
     endingDate: getApiDate(moment())
   });
 
