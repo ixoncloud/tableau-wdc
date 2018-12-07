@@ -18,7 +18,7 @@ export function createEndpointObject(data: ApiResponse<void>) {
 }
 
 /**
- * RXJS operator that retries 5 times and else throws a networkerror
+ * RXJS operator that retries 5 times  and else throws a networkerror
  */
 export function retryHttpRequest() {
   return retryWhen(errors =>
