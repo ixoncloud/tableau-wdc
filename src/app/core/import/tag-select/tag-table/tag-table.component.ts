@@ -35,7 +35,7 @@ export class TagTableComponent implements OnInit {
   /**
    * The table columns to be displayed
    */
-  displayedColumns = ['select', 'name', 'postAggr', 'limit', 'formula'];
+  displayedColumns = ['select', 'name', 'limit', 'postAggr', 'formula'];
 
   /**
    * Datasource for the table
