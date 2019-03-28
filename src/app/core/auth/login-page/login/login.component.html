@@ -5,7 +5,7 @@
       [ngStyle]="{visibility: isLoading ? 'visible' : 'hidden'}">
     </mdl-progress>
     <mdl-card-title>
-      <img src="assets/img/logo.png" alt="IXON Logo" class="logo">
+      <img [src]="logo" alt="{{name}} Logo" class="logo">
     </mdl-card-title>
     <mdl-card-supporting-text>
       <ix-email-input

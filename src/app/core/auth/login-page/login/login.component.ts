@@ -8,6 +8,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {TOO_MANY_REQUESTS, UNAUTHORIZED} from 'http-status-codes';
 import {OtpDialogComponent} from './otp/otp-dialog/otp-dialog.component';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {environment} from '../../../../../environments/environment';
 
 /**
  * Login dialog
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
    * Login dialog formgroup
    */
   public loginForm: FormGroup;
+  public name = environment.brandingName;
 
   constructor(
     private readonly initService: InitService,
@@ -102,7 +104,7 @@ export class LoginComponent implements OnInit {
         break;
       }
       case 0: {
-        this.snackbar.showToast('Could not connect to IXON.', 3000);
+        this.snackbar.showToast(`Could not connect to ${environment.brandingName}`, 3000);
         break;
       }
       default: {
@@ -155,5 +157,9 @@ export class LoginComponent implements OnInit {
     this.loginForm.controls['otp'].reset();
     this.loginForm.controls['otp'].setErrors({'incorrect': true});
     this.otpDialog.show();
+  }
+
+  get logo() {
+    return `https://cdn.ixon.cloud/sector-logo/${environment.brandingDomain}.png`;
   }
 }

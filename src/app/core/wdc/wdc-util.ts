@@ -1,5 +1,6 @@
 import TableInfo = tableau.TableInfo;
 import ColumnInfo = tableau.ColumnInfo;
+import {environment} from '../../../environments/environment';
 
 /**
  * Creates the wdc table schema
@@ -10,7 +11,7 @@ import ColumnInfo = tableau.ColumnInfo;
 export function getWDCTableSchema(tableId: string, agentName: string, cols: ColumnInfo[]): TableInfo {
   return {
     id: tableId,
-    alias: `IXON Data Export for Agent "${agentName}".`,
+    alias: `${environment.brandingName} Data Export for Agent "${agentName}".`,
     columns: cols
   };
 }
