@@ -1,6 +1,8 @@
 /**
  * Standard post aggregator options
  */
+import {environment} from '../../environments/environment';
+
 export const POSTAGGR_OPTIONS = [
   'first', 'last', 'mode', 'count'
 ];
@@ -29,4 +31,4 @@ export const CSV_SEPARATOR = ',';
 /**
  * Name of Tableau WDC Connection
  */
-export const CONNECTION_NAME = 'IXON Tableau WDC';
+export const CONNECTION_NAME = `${environment.brandingName} Tableau WDC`;

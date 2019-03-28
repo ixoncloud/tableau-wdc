@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
    * Login dialog formgroup
    */
   public loginForm: FormGroup;
+  public name = environment.brandingName;
 
   constructor(
     private readonly initService: InitService,
@@ -103,7 +104,7 @@ export class LoginComponent implements OnInit {
         break;
       }
       case 0: {
-        this.snackbar.showToast('Could not connect to IXON.', 3000);
+        this.snackbar.showToast(`Could not connect to ${environment.brandingName}`, 3000);
         break;
       }
       default: {
