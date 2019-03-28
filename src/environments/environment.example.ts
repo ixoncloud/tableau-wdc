@@ -14,6 +14,11 @@ export const environment = {
   ixApiDiscoveryUrl: 'https://api.ixon.net',
 
   /**
+   * Branding domain
+   */
+  brandingDomain: 'connect.ixon.cloud',
+
+  /**
    * Amount of retries for api discovery
    */
   ixApiDiscoveryRetry: 5,
