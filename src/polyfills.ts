@@ -18,7 +18,11 @@
  * BROWSER POLYFILLS
  */
 
+import 'global-shim';
 /** IE9, IE10 and IE11 requires all of the following polyfills. **/
+import 'core-js/es6/promise';
+import 'core-js/es6/map';
+import 'core-js/es6/weak-map';
 import 'core-js/es6/symbol';
 import 'core-js/es6/object';
 import values from 'object.values';
@@ -31,8 +35,6 @@ import 'core-js/es6/string';
 import 'core-js/es6/date';
 import 'core-js/es6/array';
 import 'core-js/es6/regexp';
-import 'core-js/es6/map';
-import 'core-js/es6/weak-map';
 import 'core-js/es6/set';
 /** Evergreen browsers require these. **/
 // Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
